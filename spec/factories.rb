@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :review do
     content Faker::HitchhikersGuideToTheGalaxy.quote
     heading Faker::HitchhikersGuideToTheGalaxy.specie
-    rating rand(1..5)
+    rating Faker::Number.between(1, 5)
   end
   factory :user do
     name 'Qwerty Jr'
