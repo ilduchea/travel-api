@@ -11,7 +11,8 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = Review.create!(review_params)
+    @destination = Destination.find(params[:destination_id])
+    @review = @destination.reviews.create!(review_params)
     json_response(@review, :created)
   end
 
@@ -35,6 +36,6 @@ class ReviewsController < ApplicationController
 
 private
   def review_params
-    params.permit(:content, :heading, :rating)
+    params.permit(:content, :heading, :rating, :user_id)
   end
 end
