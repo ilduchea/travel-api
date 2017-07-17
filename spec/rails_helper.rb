@@ -62,3 +62,7 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Review.destroy_all
+User.destroy_all
+Destination.destroy_all
