@@ -27,6 +27,8 @@ describe "get all reviews route", :type => :request do
   end
 
   it 'returns status code 200' do
+    review = destination.reviews.first
+    get "/destinations/#{destination.id}/reviews/#{review.id}"
     expect(response).to have_http_status(:success)
   end
 end
