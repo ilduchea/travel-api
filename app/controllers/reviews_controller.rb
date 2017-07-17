@@ -1,4 +1,4 @@
-class ReviewController < ApplicationController
+class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.all
@@ -25,11 +25,7 @@ class ReviewController < ApplicationController
     @review.destroy
   end
 
-  private
-  def json_response(object, status = :ok)
-    render json: object, status: status
-  end
-
+private
   def review_params
     params.permit(:content, :heading, :rating)
   end

@@ -1,4 +1,4 @@
-class DestinationController < ApplicationController
+class DestinationsController < ApplicationController
 
   def index
     @destinations = Destination.all
@@ -25,11 +25,7 @@ class DestinationController < ApplicationController
     @destination.destroy
   end
 
-  private
-  def json_response(object, status = :ok)
-    render json: object, status: status
-  end
-
+private
   def destination_params
     params.permit(:name, :city, :country, :locale)
   end

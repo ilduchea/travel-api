@@ -2,18 +2,30 @@ Review.destroy_all
 User.destroy_all
 Destination.destroy_all
 
-user = FactoryGirl.create(:user)
+15.times do |i|
+  email = Faker::Lorem.words(1)
+  User.create!(
+    name: Faker::HitchhikersGuideToTheGalaxy.character,
+    email: "#{email}#{i}@email.com",
+    password: 'password',
+    id: i+1
+  )
+end
 
 50.times do |i|
-  destination = FactoryGirl.create(:destination)
+  destination = Destination.create!(
+    name: Faker::LordOfTheRings.location,
+    city: Faker::Address.city,
+    locale: Faker::Address.state,
+    country: Faker::Address.country
+  )
   n = Faker::Number.between(1, 5)
   n.times do |index|
-    review = FactoryGirl.build(:review)
     destination.reviews.create!(
-      content: review.content,
-      heading: review.heading,
-      rating: review.rating,
-      user_id: user.id
+      content: Faker::HitchhikersGuideToTheGalaxy.quote,
+      heading: Faker::HitchhikersGuideToTheGalaxy.specie,
+      rating: Faker::Number.between(1, 5),
+      user_id: Faker::Number.between(1, 15)
     )
   end
 end
