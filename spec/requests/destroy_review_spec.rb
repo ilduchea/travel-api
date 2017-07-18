@@ -10,7 +10,7 @@ describe 'reviews#destroy', :type => :request do
       rating: Faker::Number.between(1, 5),
       user_id: @user.id
     )
-    delete "/destinations/#{@destination.id}/reviews/#{@review.id}"
+    delete "/v1/destinations/#{@destination.id}/reviews/#{@review.id}"
   end
 
   it 'deletes the review' do
@@ -20,7 +20,7 @@ describe 'reviews#destroy', :type => :request do
 
 
   it 'responds with 404' do
-    get "/destinations/#{@destination.id}/reviews/#{@review.id}"
+    get "/v1/destinations/#{@destination.id}/reviews/#{@review.id}"
     expect(response).to have_http_status(404)
   end
 end

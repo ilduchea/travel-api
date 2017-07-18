@@ -9,7 +9,7 @@ describe "updates a review route", :type => :request do
     @review.destination_id = @destination.id
     @review.user_id = @user.id
     @review.save
-    put "/destinations/#{@destination.id}/reviews/#{@review.id}", params: {
+    put "/v1/destinations/#{@destination.id}/reviews/#{@review.id}", params: {
       content: "Kat's Place"
     }
   end

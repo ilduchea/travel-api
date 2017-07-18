@@ -4,7 +4,7 @@ describe "updates a destination route", :type => :request do
 
   before do
     @destination = FactoryGirl.create(:destination)
-    put "/destinations/#{@destination.id}", params: {
+    put "/v1/destinations/#{@destination.id}", params: {
       name: "Kat's Place"
     }
   end

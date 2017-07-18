@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class V1::SessionsController < ApplicationController
   def create
     @user = User.authenticate(params[:email], params[:password])
     if @user

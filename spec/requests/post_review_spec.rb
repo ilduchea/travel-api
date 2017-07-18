@@ -7,7 +7,7 @@ describe "post a review route", :type => :request do
 
     user = FactoryGirl.create(:user)
 
-    post "/destinations/#{destination.id}/reviews", params: {
+    post "/v1/destinations/#{destination.id}/reviews", params: {
       content: 'Nice',
       heading: 'Cool',
       rating: 4,

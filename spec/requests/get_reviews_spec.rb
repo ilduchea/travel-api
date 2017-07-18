@@ -20,7 +20,7 @@ describe "get all reviews route", :type => :request do
     end
   }
 
-  before { get "/destinations/#{destination.id}/reviews"}
+  before { get "/v1/destinations/#{destination.id}/reviews"}
 
   it 'returns all reviews' do
     expect(JSON.parse(response.body).size).to eq(15)
@@ -28,7 +28,7 @@ describe "get all reviews route", :type => :request do
 
   it 'returns status code 200' do
     review = destination.reviews.first
-    get "/destinations/#{destination.id}/reviews/#{review.id}"
+    get "/v1/destinations/#{destination.id}/reviews/#{review.id}"
     expect(response).to have_http_status(:success)
   end
 end

@@ -1,7 +1,8 @@
-class ReviewsController < ApplicationController
+class V1::ReviewsController < ApplicationController
 
   def index
-    @reviews = Review.filter(params.slice(:heading_scope, :content_scope, :rating_scope))
+    destination = Destination.find(params[:destination_id])
+    @reviews = destination.reviews.filter(params.slice(:heading_scope, :content_scope, :rating_scope))
     json_response(@reviews)
   end
 

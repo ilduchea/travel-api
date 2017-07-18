@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "post a destination route", :type => :request do
 
   before do
-    post '/destinations', params: {
+    post '/v1/destinations', params: {
       name: 'Qwerty',
       city: 'PDX',
       locale: 'Oregon',
@@ -33,7 +33,7 @@ describe "post a destination route", :type => :request do
   end
 
   it 'returns error for missing param in destination post' do
-    post '/destinations', params: {
+    post '/v1/destinations', params: {
       name: '',
       city: 'PDX',
       locale: 'Oregon',
