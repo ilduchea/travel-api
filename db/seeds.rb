@@ -8,9 +8,19 @@ Destination.destroy_all
     name: Faker::HitchhikersGuideToTheGalaxy.character,
     email: "#{email}#{i}@email.com",
     password: 'password',
+    password_confirmation: 'password',
     id: i+1
   )
 end
+
+User.create!(
+  name: 'Qwerty',
+  email: "qwerty@email.com",
+  password: 'password',
+  password_confirmation: 'password',
+  id: 42
+)
+
 
 50.times do |i|
   destination = Destination.create!(

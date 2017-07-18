@@ -2,6 +2,7 @@ class ApplicationController < ActionController::API
   # protect_from_forgery with: :exception
   # helper_method :current_user
   include Response
+  attr_reader :current_user
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     json_response({ message: exception.message }, :not_found)
@@ -10,17 +11,33 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordInvalid do |exception|
     json_response({ message: exception.message }, :unprocessable_entity)
   end
-
-  def current_user
-    if session[:user_id]
-      @current_user = User.find(session[:user_id])
-    end
+  
+  def index
   end
 
-  def authorize
-    if !current_user
-      flash[:alert] = "You aren't authorized to visit that page."
-      redirect_to '/'
+  protected
+  def authenticate_request!
+    unless user_id_in_token?
+      render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+      return
     end
+    @current_user = User.find(auth_token[:user_id])
+  rescue JWT::VerificationError, JWT::DecodeError
+    render json: { errors: ['Not Authenticated'] }, status: :unauthorized
+  end
+
+  private
+  def http_token
+      @http_token ||= if request.headers['Authorization'].present?
+        request.headers['Authorization'].split(' ').last
+      end
+  end
+
+  def auth_token
+    @auth_token ||= JsonWebToken.decode(http_token)
+  end
+
+  def user_id_in_token?
+    http_token && auth_token && auth_token[:user_id].to_i
   end
 end

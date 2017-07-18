@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
-  concern :api_base do
-    get '/signup' => 'users#new'
-    post '/users' => 'users#create'
-
-    get '/signin' => 'sessions#new'
-    post '/signin' => 'sessions#create'
-    get '/signout' => 'sessions#destroy'
-  end
 
   concern :api_base do
+    devise_for :users
+    post 'auth_user' => 'authentication#authenticate_user'
+    get 'home' => 'application#index'
     resources :destinations do
       resources :reviews
     end

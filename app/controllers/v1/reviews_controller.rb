@@ -1,4 +1,5 @@
 class V1::ReviewsController < ApplicationController
+  before_action :authenticate_request!
 
   def index
     destination = Destination.find(params[:destination_id])

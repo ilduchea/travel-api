@@ -10,6 +10,7 @@ FactoryGirl.define do
     name 'Qwerty Jr'
     email 'qwertyjr1@email.com'
     password 'password'
+    password_confirmation 'password'
   end
   # factory :admin, class: User do
   #   name 'Qwerty'
