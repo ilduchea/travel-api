@@ -1,7 +1,7 @@
 class DestinationsController < ApplicationController
 
   def index
-    @destinations = Destination.filter(params.slice(:name_scope, :city_scope, :locale_scope, :country_scope, :mostReviews))
+    @destinations = Destination.filter(params.slice(:name_scope, :city_scope, :locale_scope, :country_scope, :mostReviews, :random))
     json_response(@destinations)
   end
 
@@ -9,7 +9,7 @@ class DestinationsController < ApplicationController
     @destination = Destination.find(params[:id])
     json_response(@destination)
   end
-
+  
   def create
     @destination = Destination.create!(destination_params)
     json_response(@destination, :created)

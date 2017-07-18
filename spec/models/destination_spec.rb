@@ -54,6 +54,13 @@ RSpec.describe Destination, type: :model do
         expect(JSON.parse(response.body).first['id']).to eq(@destination2.id)
       end
     end
+
+    describe 'random' do
+      it "returns a random destination" do
+        get "/destinations?random=1"
+        expect(JSON.parse(response.body).length).to eq(1)
+      end
+    end
   end
 
 end

@@ -14,5 +14,7 @@ class Destination < ApplicationRecord
       .group("destinations.id")
       .order("reviews_count DESC")
       .limit(limit)
-    )}
+    )
+  }
+  scope :random, ->(limit){  Destination.order("RANDOM()").limit(limit) }
 end

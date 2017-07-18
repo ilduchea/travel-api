@@ -13,8 +13,8 @@
         null,
         1,
         1,
-        5,
-        5,
+        6,
+        6,
         null,
         null,
         1,
@@ -54,6 +54,13 @@
         null,
         null,
         null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
         1,
         1,
         null,
@@ -347,7 +354,7 @@
       "/Users/Guest/Desktop/travel-api/app/controllers/concerns/response.rb": [
         1,
         1,
-        30,
+        31,
         null,
         null
       ],
@@ -355,8 +362,8 @@
         1,
         null,
         1,
-        9,
-        9,
+        10,
+        10,
         null,
         null,
         1,
@@ -502,11 +509,11 @@
         null,
         1,
         1,
-        14,
-        14,
-        8,
+        15,
+        15,
+        9,
         null,
-        14,
+        15,
         null,
         null,
         null
@@ -529,6 +536,8 @@
         null,
         1,
         null,
+        null,
+        2,
         null
       ],
       "/Users/Guest/Desktop/travel-api/app/models/review.rb": [
@@ -923,6 +932,6 @@
         null
       ]
     },
-    "timestamp": 1500401563
+    "timestamp": 1500403012
   }
 }
