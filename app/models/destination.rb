@@ -8,4 +8,11 @@ class Destination < ApplicationRecord
   scope :country_scope, -> (country){ where("lower(country) like ?", "%#{country}%".downcase) }
   scope :name_scope, -> (name){ where("lower(name) like ?", "%#{name}%".downcase) }
   scope :locale_scope, -> (locale){ where("lower(locale) like ?", "%#{locale}%".downcase) }
+  scope :mostReviews, -> (limit){(
+    select("destinations.*, count(reviews.id) as reviews_count")
+      .joins(:reviews)
+      .group("destinations.id")
+      .order("reviews_count DESC")
+      .limit(limit)
+    )}
 end

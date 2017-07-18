@@ -40,6 +40,20 @@ RSpec.describe Destination, type: :model do
         expect(JSON.parse(response.body).first['country']).to eq(@destination1.country)
       end
     end
+
+    describe "mostReviews" do
+      it "returns the most reviewed destination" do
+        user = FactoryGirl.create(:user)
+        @destination2.reviews.create(
+          content: Faker::HitchhikersGuideToTheGalaxy.quote,
+          heading: Faker::HitchhikersGuideToTheGalaxy.specie,
+          rating: Faker::Number.between(1, 5),
+          user_id: user.id
+        )
+        get "/destinations?mostReviews=1"
+        expect(JSON.parse(response.body).first['id']).to eq(@destination2.id)
+      end
+    end
   end
 
 end

@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
 
   def index
-    @reviews = Review.all
+    @reviews = Review.filter(params.slice(:heading_scope, :content_scope, :rating_scope))
     json_response(@reviews)
   end
 

@@ -1,7 +1,7 @@
 class DestinationsController < ApplicationController
 
   def index
-    @destinations = Destination.filter(params.slice(:name_scope, :city_scope, :locale_scope, :country_scope))
+    @destinations = Destination.filter(params.slice(:name_scope, :city_scope, :locale_scope, :country_scope, :mostReviews))
     json_response(@destinations)
   end
 
@@ -37,8 +37,4 @@ private
   def destination_params
     params.permit(:name, :city, :country, :locale)
   end
-
-  # def filtering_params(params)
-  #   params.slice(:name, :city, :locale, :country)
-  # end
 end
