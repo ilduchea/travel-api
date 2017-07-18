@@ -2,4 +2,10 @@ class Destination < ApplicationRecord
   has_many :reviews
   # before_action :authorize, except: [:index, :show]
   validates :name, :city, :country, :presence => true
+  include Filterable
+
+  scope :city_scope, -> (city){ where("lower(city) like ?", "%#{city}%".downcase) }
+  scope :country_scope, -> (country){ where("lower(country) like ?", "%#{country}%".downcase) }
+  scope :name_scope, -> (name){ where("lower(name) like ?", "%#{name}%".downcase) }
+  scope :locale_scope, -> (locale){ where("lower(locale) like ?", "%#{locale}%".downcase) }
 end
