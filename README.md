@@ -1,4 +1,4 @@
-# Travel API
+# Travel API, v1
 
 #### This is a API Application built using Ruby on Rails.  July 16, 2017
 
@@ -7,6 +7,7 @@
 ## Description
 
 This is an API that includes data for destinations and reviews of destinations.  It includes Authentication using Devise and JWT tokens.  It also features API versioning.  It includes multiple scopes listed below for querying.
+
 
 Users can access:
 - GET requests for universities and reviews
@@ -58,9 +59,10 @@ In your terminal:
 
 This application uses JWT Tokens.  To configure, you must authenticate the seeded user to generate a token.  In your terminal, run:
 
-`curl -X POST -d email="qwerty@email.com" -d password="password" http://localhost:3000/auth_user`
+`curl -X POST -d email="qwerty@email.com" -d password="password" http://localhost:3000/v1/auth_user`
 
-You can test the API in Postman.
+You will need the auth_token from curl to run queries via Postman.
+
 
 * URL: localhost:3000/
 * Header Key: Authorization
@@ -87,7 +89,7 @@ See table below for possible searches and an example of performing in Postman/CU
 #### Destination Searches
 
 | Parameter | Sample Value | Description |
-|-----------|:------------:|------------:|
+|:----------:|:------------:|:------------|
 | name_scope |  Disneyland | The destination's name; searches for similar match without case sensitivity. |
 | city_scope |    Portland   |  The city of a destination; returns all destinations of similar city name, regardless of case input.  |
 | locale_scope | OR |    Returns state or province of the destination provided. |
@@ -95,14 +97,51 @@ See table below for possible searches and an example of performing in Postman/CU
 | mostReviews | 3 | Depending on integer input, will return destinations with most reviews; in this case, will return 3 destinations |
 | random | 5 | Depending on integer input, will return a number of random destinations; in this case, will return 5 random destinations |
 
+#### Example Destination Searches
+
+Postman:
+
+in the Headers section the key-value pair is:
+Authorization, your-own-token-from-curl-goes-here
+
+
+1)  Get all destinations.
+* select GET and type in :
+```
+http://localhost:3000/v1/destinations
+```
+
+2) Get all destinations with word "Enchanted" in destination name.
+* select GET and type in :
+```
+http://localhost:3000/v1/destinations?name_scope=Enchanted
+```
+
+3) Get all destinations with word "Enchanted" and the most reviewed destination in one query:
+```
+http://localhost:3000/v1/destinations?name_scope=Enchanted&mostReviews=1
+```
+
 #### Reviews Searches
 
 | Parameter | Sample Value | Description |
-|-----------|:------------:|------------:|
+|:---------:|:------------:|:------------|
 | heading_scope | Amazing | Returns all the reviews that contain the word 'Amazing' in the heading |
 | content_scope | Paris   | Returns all the reviews that contain the word 'Paris' within the body of the review |
 | rating_scope | 2 | Returns all the reviews matching the rating value provided; in this case, will return all reviews rating the destination a 2. |
 
+
+#### Example Reviews Searches
+
+1) Get all reviews for a destination, in this case, destination id is 51.
+```
+http://localhost:3000/v1/destinations/51/reviews
+```
+
+2) Get all reviews for a destination, in this case, destination id is 51, where the rating is 5.
+```
+http://localhost:3000/v1/destinations/51/reviews?rating_scope=5
+```
 
 ## Technologies Used
 
