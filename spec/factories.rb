@@ -19,7 +19,7 @@ FactoryGirl.define do
   #   admin true
   # end
   factory :destination do
-    name Faker::LordOfTheRings.location
+    name Faker::Address.community
     city Faker::Address.city
     locale Faker::Address.state
     country Faker::Address.country

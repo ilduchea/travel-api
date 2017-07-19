@@ -3,6 +3,7 @@ class Destination < ApplicationRecord
   # before_action :authorize, except: [:index, :show]
   validates :name, :city, :country, :presence => true
   include Filterable
+  paginates_per 20
 
   scope :city_scope, -> (city){ where("lower(city) like ?", "%#{city}%".downcase) }
   scope :country_scope, -> (country){ where("lower(country) like ?", "%#{country}%".downcase) }

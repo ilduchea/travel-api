@@ -3,6 +3,9 @@ class V1::DestinationsController < ApplicationController
 
   def index
     @destinations = Destination.filter(params.slice(:name_scope, :city_scope, :locale_scope, :country_scope, :mostReviews, :random))
+    if !params[:random] || params[:random].to_i > 20
+      @destinations = @destinations.page params[:page]
+    end
     json_response(@destinations)
   end
 

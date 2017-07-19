@@ -28,9 +28,9 @@ class ApplicationController < ActionController::API
 
   private
   def http_token
-      @http_token ||= if request.params['api_key'].present?
-        request.params['api_key']
-      end
+    @http_token ||= if request.params['api_key'].present?
+      request.params['api_key']
+    end
   end
 
   def auth_token

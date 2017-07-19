@@ -10,8 +10,12 @@ RSpec.describe Destination, type: :model do
   describe "scopes", type: :request do
 
     before do
-      @destination2 = FactoryGirl.create(:destination)
-      @destination1 = FactoryGirl.create(:destination)
+      25.times do
+        FactoryGirl.create(:destination)
+      end
+      destinations = Destination.all
+      @destination2 = destinations[1]
+      @destination1 = destinations[0]
       @user = FactoryGirl.create(:user)
       post '/v1/auth_user', params: {
         email: @user.email,
@@ -50,12 +54,11 @@ RSpec.describe Destination, type: :model do
 
     describe "mostReviews" do
       it "returns the most reviewed destination" do
-        user = FactoryGirl.create(:user)
         @destination2.reviews.create(
           content: Faker::HitchhikersGuideToTheGalaxy.quote,
           heading: Faker::HitchhikersGuideToTheGalaxy.specie,
           rating: Faker::Number.between(1, 5),
-          user_id: user.id
+          user_id: @user.id
         )
         get "/v1/destinations?mostReviews=1&api_key=#{@user_api_key}"
         expect(JSON.parse(response.body).first['id']).to eq(@destination2.id)

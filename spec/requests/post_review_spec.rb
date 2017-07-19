@@ -6,16 +6,20 @@ describe "post a review route", :type => :request do
     destination = FactoryGirl.create(:destination)
 
     user = FactoryGirl.create(:user)
+    post '/v1/auth_user', params: {
+      email: user.email,
+      password: user.password
+    }
+    user_api_key = JSON.parse(response.body)["auth_token"]
 
     post "/v1/destinations/#{destination.id}/reviews", params: {
       content: 'Nice',
       heading: 'Cool',
       rating: 4,
       user_id: user.id,
-      api_key: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0Mn0.ylfFkyazv2EAXrn-c36-kBh6pQfUVpcRZNd0CuJ5K6g'
+      api_key: user_api_key
       }
 
-    get ""
   end
 
   it 'returns the review content' do

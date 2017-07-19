@@ -3,11 +3,19 @@ require 'rails_helper'
 describe "post a destination route", :type => :request do
 
   before do
+    user = FactoryGirl.create(:user)
+    post '/v1/auth_user', params: {
+      email: user.email,
+      password: user.password
+    }
+    @user_api_key = JSON.parse(response.body)["auth_token"]
+
     post '/v1/destinations', params: {
       name: 'Qwerty',
       city: 'PDX',
       locale: 'Oregon',
-      country: 'USA'
+      country: 'USA',
+      api_key: @user_api_key
     }
   end
 
@@ -37,7 +45,8 @@ describe "post a destination route", :type => :request do
       name: '',
       city: 'PDX',
       locale: 'Oregon',
-      country: 'USA'
+      country: 'USA',
+      api_key: @user_api_key
     }
     expect(response).to have_http_status(422)
   end
