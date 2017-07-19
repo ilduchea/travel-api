@@ -27,11 +27,16 @@ RSpec.describe Review, type: :model do
         rating: Faker::Number.between(1, 5),
         user_id: @user.id
       )
+      post '/v1/auth_user', params: {
+        email: @user.email,
+        password: @user.password
+      }
+      @user_api_key = JSON.parse(response.body)["auth_token"]
     end
 
     describe "heading_scope" do
       it "returns all reviews where search params equals the heading" do
-        get "/v1/destinations/#{@destination.id}/reviews?heading_scope=#{@review1.heading}"
+        get "/v1/destinations/#{@destination.id}/reviews?heading_scope=#{@review1.heading}&api_key=#{@user_api_key}"
         expect(JSON.parse(response.body).first['heading']).to eq(@review1.heading)
       end
     end
@@ -40,14 +45,14 @@ RSpec.describe Review, type: :model do
       it "returns the all reviews where search params equal the content" do
         # search_content = @review1.content.split(' ')[0]
         search_content = @review1.content
-        get "/v1/destinations/#{@destination.id}/reviews?content_scope=#{search_content}"
+        get "/v1/destinations/#{@destination.id}/reviews?content_scope=#{search_content}&api_key=#{@user_api_key}"
         expect(JSON.parse(response.body).first['content']).to include(search_content)
       end
     end
 
     describe "rating_scope" do
       it "returns all reviews where search params equals the rating" do
-        get "/v1/destinations/#{@destination.id}/reviews?rating_scope=#{@review1.rating}"
+        get "/v1/destinations/#{@destination.id}/reviews?rating_scope=#{@review1.rating}&api_key=#{@user_api_key}"
         expect(JSON.parse(response.body).first['rating']).to eq(@review1.rating)
       end
     end

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordInvalid do |exception|
     json_response({ message: exception.message }, :unprocessable_entity)
   end
-  
+
   def index
   end
 
@@ -28,8 +28,8 @@ class ApplicationController < ActionController::API
 
   private
   def http_token
-      @http_token ||= if request.headers['Authorization'].present?
-        request.headers['Authorization'].split(' ').last
+      @http_token ||= if request.params['api_key'].present?
+        request.params['api_key']
       end
   end
 

@@ -2,7 +2,7 @@
 
 #### This is a API Application built using Ruby on Rails.  July 16, 2017
 
-#### By _**Tyler Stevenson and Jennifer Kinsey**_
+#### By _**Tyler Stephenson and Jennifer Kinsey**_
 
 ## Description
 
@@ -10,13 +10,13 @@ This is an API that includes data for destinations and reviews of destinations. 
 
 
 Users can access:
-- GET requests for universities and reviews
+- GET requests for destinations and reviews
 
 Authenticated users can access:
-- POST, PATCH, PUT, DELETE requests for universities and reviews
+- POST, PATCH, PUT, DELETE requests for destinations and reviews
 
 Scopes:
-- Filters destination by name, city, locale, country and most reviews
+- Filters destination by name, city, locale, country, most reviews, and random destinations
 - Filters reviews by rating, review body content, and review heading
 
 The application structure is outlined below.  
@@ -33,9 +33,7 @@ The application is seeded using `faker`.  It seeds 50 destinations and variable 
 There are 15 random users in the database and one specified:
 name: 'Qwerty',
 email: "qwerty@email.com",
-password: 'password',
-password_confirmation: 'password',
-id: 42
+password: 'password'
 
 ## Prerequisites
 
@@ -54,8 +52,8 @@ In your terminal:
 * `bundle install`
 * Open another terminal window and type `postgres`.  Leave this window open.
 * In your first terminal window type:
-* `bundle exec rake db:setup`
-* `bundle exec rake db:test:prepare`
+* `rails db:setup`
+* `rails db:test:prepare`
 
 This application uses JWT Tokens.  To configure, you must authenticate the seeded user to generate a token.  In your terminal, run:
 
@@ -64,22 +62,22 @@ This application uses JWT Tokens.  To configure, you must authenticate the seede
 You will need the auth_token from curl to run queries via Postman.
 
 
-* URL: localhost:3000/
+* URL: localhost:3000/v1/
 * Header Key: Authorization
-* Header Value: Bearer 'your-own-token-goes-here'
+* Header Value: 'your-own-token-goes-here'
 
 ## Development server
 
-Run `bundle exec rails s` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+Run `rails s` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
 
 * If you would like to make changes to this project, do so in a text editor.
 * Make frequent commits with detailed comments.
-* Submit changes a pull request.
+* Submit changes via pull request.
 
 ## Running tests
 
 This app uses RSpec and Shouldamatchers for testing.
-Run `bundle exec rspec` in terminal to test.
+Run `rspec` in terminal to test.
 
 
 ## Performing Searches
@@ -108,18 +106,18 @@ Authorization, your-own-token-from-curl-goes-here
 1)  Get all destinations.
 * select GET and type in :
 ```
-http://localhost:3000/v1/destinations
+http://localhost:3000/v1/destinations?api_key=your_api_key
 ```
 
 2) Get all destinations with word "Enchanted" in destination name.
 * select GET and type in :
 ```
-http://localhost:3000/v1/destinations?name_scope=Enchanted
+http://localhost:3000/v1/destinations?name_scope=Enchanted&api_key=your_api_key
 ```
 
-3) Get all destinations with word "Enchanted" and the most reviewed destination in one query:
+3) Get the destination with word "Enchanted" and the most reviewed destination in one query:
 ```
-http://localhost:3000/v1/destinations?name_scope=Enchanted&mostReviews=1
+http://localhost:3000/v1/destinations?name_scope=Enchanted&mostReviews=1&api_key=your_api_key
 ```
 
 #### Reviews Searches
@@ -135,12 +133,12 @@ http://localhost:3000/v1/destinations?name_scope=Enchanted&mostReviews=1
 
 1) Get all reviews for a destination, in this case, destination id is 51.
 ```
-http://localhost:3000/v1/destinations/51/reviews
+http://localhost:3000/v1/destinations/51/reviews?api_key=your_api_key
 ```
 
 2) Get all reviews for a destination, in this case, destination id is 51, where the rating is 5.
 ```
-http://localhost:3000/v1/destinations/51/reviews?rating_scope=5
+http://localhost:3000/v1/destinations/51/reviews?rating_scope=5&api_key=your_api_key
 ```
 
 ## Technologies Used
@@ -164,7 +162,7 @@ http://localhost:3000/v1/destinations/51/reviews?rating_scope=5
 
 MIT License
 
-Copyright (c) 2017 Jennifer Kinsey, Tyler Stevenson
+Copyright (c) 2017 Jennifer Kinsey, Tyler Stephenson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
