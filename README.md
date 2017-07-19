@@ -6,7 +6,7 @@
 
 ## Description
 
-This is an API that includes data for destinations and reviews of destinations.  It includes Authentication using Devise and JWT tokens.  It also features API versioning.  It includes multiple scopes listed below for querying.
+This is an API that includes data for destinations and reviews of destinations.  It includes Authentication using Devise and JWT tokens.  It also features API versioning and pagination.  It includes multiple scopes listed below for querying.
 
 
 Users can access:
@@ -118,6 +118,12 @@ http://localhost:3000/v1/destinations?name_scope=Enchanted&api_key=your_api_key
 3) Get the destination with word "Enchanted" and the most reviewed destination in one query:
 ```
 http://localhost:3000/v1/destinations?name_scope=Enchanted&mostReviews=1&api_key=your_api_key
+```
+
+4) Get second page of all destinations
+* select GET and type in:
+```
+http://localhost:3000/v1/destinations?page=2&api_key=your_api_key
 ```
 
 #### Reviews Searches
